@@ -6,11 +6,20 @@ const PORT = 3000;
 app.use(express.static("public"));
 app.use(express.json());
 
+
 // Custom factorial function
 function factorial(n) {
     if (!Number.isInteger(n) || n < 0) return NaN; // Ensure integer and non-negative
     return n === 0 ? 1 : Array.from({ length: n }, (_, i) => i + 1).reduce((a, b) => a * b, 1);
 }
+
+const path = require("path");
+
+// Serve index.html manually
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "index.html"));
+});
+
 
 app.post("/calculate", (req, res) => {
     try {
